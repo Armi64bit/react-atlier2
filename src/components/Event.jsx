@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { Button, Card, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Event(props) {
   const [isBooked, setIsBooked] = useState(false);
@@ -33,7 +34,7 @@ function Event(props) {
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={`public/images/${props.img}`} />
       <Card.Body>
-        <Card.Title>{props.name}</Card.Title>
+      <Card.Title as={Link} to={`/events/${props.id}`}>{props.name}</Card.Title>
         <Card.Text>Price: {props.price}</Card.Text>
         <Card.Text>Number of tickets : {props.nbTickets}</Card.Text>
         <Card.Text>Number of Participants: {props.nbParticipants}</Card.Text>
