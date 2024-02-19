@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import data from "/src/data/events.json"
+
 function EventDetails() {
-  const { eventId } = useParams(); // Retrieve event ID from URL parameters
+  const { name } = useParams(); // Retrieve event name from URL parameters
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch event details from db.json
+  // Fetch event details using name
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Find matching event using eventId
-        const selectedEvent = data.find((event) => event.id == eventId);
+        const selectedEvent = data.find(
+          (event) => event.name.toLowerCase() === name.toLowerCase()
+        ); // Case-insensitive comparison
 
         if (selectedEvent) {
           setEventData(selectedEvent);
@@ -24,21 +26,33 @@ function EventDetails() {
     };
 
     fetchData();
-  }, [eventId]);
+  }, [name]);
 
   // Display event details or error message
   if (eventData) {
     return (
-      <div>
-        {/* Render fetched event details using `eventData` properties */}
-        <h2>{eventData.name}</h2>
-        <p>{eventData.description}</p>
-        <img src={`public/images/${eventData.img}`} alt={eventData.name} />
-        <p>Price: {eventData.price} &euro;</p>
-        <p>Remaining Tickets: {eventData.nbTickets}</p>
-        <p>Participants: {eventData.nbParticipants}</p>
-        {/* Add booking/purchase functionality if applicable */}
+      <div className="container mt-5">
+      {/* Event details with Bootstrap styling */}
+      <h2 className="display-4 mb-3">{eventData.name}</h2>
+      <div className="row">
+        <div className="col-md-8">
+          <p className="text-muted">{eventData.description}</p>
+        </div>
+        <div className="col-md-4">
+          <img
+            src={`/public/images/${eventData.img}`}
+            alt={eventData.name}
+            className="img-fluid mb-3"
+          />
+          <div className="d-flex justify-content-between mb-3">
+            <p className="text-primary">Price: {eventData.price} &euro;</p>
+            <p className="text-muted">Remaining Tickets: {eventData.nbTickets}</p>
+          </div>
+          <p className="text-muted">Participants: {eventData.nbParticipants}</p>
+          {/* Add booking/purchase functionality with Bootstrap components */}
+        </div>
       </div>
+    </div>
     );
   } else if (error) {
     return <div>Error: {error.message}</div>;

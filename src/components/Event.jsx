@@ -34,7 +34,7 @@ function Event(props) {
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={`public/images/${props.img}`} />
       <Card.Body>
-      <Card.Title as={Link} to={`/events/${props.id}`}>{props.name}</Card.Title>
+      <Card.Title as={Link} to={`/events/${props.name}`}>{props.name}</Card.Title>
         <Card.Text>Price: {props.price}</Card.Text>
         <Card.Text>Number of tickets : {props.nbTickets}</Card.Text>
         <Card.Text>Number of Participants: {props.nbParticipants}</Card.Text>

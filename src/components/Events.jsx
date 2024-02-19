@@ -2,7 +2,7 @@
 import axios from "axios";
 import Event from "./Event";
 import { useEffect, useState } from "react";
-import { Stack, Alert } from "react-bootstrap";
+import { Container, Row, Col } from 'react-bootstrap';
 import fs from "fs/promises"; // Import fs module for file operations
 
 function Events() {
@@ -63,8 +63,8 @@ function Events() {
     }
   };
 
-  return (
-    <Stack direction="horizontal " gap={3}>
+  return (   <Container className="mt-5">
+  <Row xs={1} md={3} lg={4}>
       {data.map((item) => (
         <Event
           key={item.id}
@@ -79,7 +79,8 @@ function Events() {
           buy={buy}
         />
       ))}
-    </Stack>
+</Row>
+    </Container>
   );
 }
 
